@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/Curso HTML y CSS/Formulario/Registro/estilos.css">
+  <title>Registro de Usuario</title>
+</head>
+<body>
+  <h1>Registro de Usuario</h1>
+  <p>Responder la informacion solicitada para el correcto registro</p>
+  <form action="#">
+    <fieldset>
+    <label for="nombre1">Primer nombre: <input id="nombre1" type="text"></label>
+    <label for="nombre2">Segundo Nombre: <input id="nombre2" type="text"></label>
+    <label for="apellido1">Primer apellido: <input id="apellido1" type="text"></label>
+    <label for="apellido2">Segundo apellido: <input id="apellido2" type="text"></label>
+    </fieldset>
+  <fieldset>
+    <label for="cuentapersonal"><input type="radio" id="cuentapersonal" name="tipocuenta" class="inline"> Cuenta Personal</label>
+    <label for="cuentaempresarial"><input type="radio" id="cuentaempresarial" name="tipocuenta" class="inline"> Cuenta Empresarial</label>
+    <label for="terminosycondiciones">Acepto <a href="https://www.youtube.com/watch?v=v7VVlKSR2JI" target="_blank">terminos y condiciones</a><input type="checkbox" id="terminosycondiciones" required></label>
+  </fieldset>
+  <fieldset>
+    <label for="foto">Subir una foto de perfil:  <input type="file" id="foto"></label>
+    <label for="edad">Cual es tu edad?<input id="edad" type="number" min="13" max="120"></label>
+    <label>Como entraste a la pagina?</label>
+    <select for="comoentro">
+      <option value="valor1">Seleccione una</option>
+      <option value="valor2">Por un link</option>
+      <option value="valor3">Navegando por internet</option>
+      <option value="valor4">No sabes como</option>
+      <option value="valor5">Ozuna beibi</option>
+    </select>
+    <label for="biografia">Escribe tu biografia:</label>
+    <textarea name="biografia" id="biografia" cols="60" rows="4"></textarea>
+  </fieldset>
+  <input type="submit" id="submit" class="submit">
+  </form>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html lang="es"> <!--El codigo "lang" es para poner el idioma-->
+  <head>
+    <title>AppDePerros</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <h2 id="1234">AppDePerros</h2>
+    <main>
+      <h3>Imagenes de Perros</h3>
+      <!--TODO: Agregar enlace a imagenes de Gatos-->
+      <p>Haz click aqui para ver <a href="#" target="_blank" rel="noopener noreferrer">Imagenes de Perros</a>.</p>    <!-- "href" representa el destino o la direccion de enlace a donde nos llevara el link.    el "target:_blank" es para que se habra el link en una pestaña nueva. lo que dice en rel es para prevenir ataques, por cuestiones de seguridad,    el "#" en href es para crear links muertos-->
+
+      <a href="https://www.netflix.com/browse" target="_blank" rel="noopener noreferrer"><img src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/social_share_large/public/purina-que-sabes-de-los-perros-poodle_0.jpg?itok=BA9kq-Fz" alt="Un lindo perrito cafecito chiquito que esta sacando su lengua mientras esta acostado descansando"></a> <!--En "src" es donde va la direccion de la imagen-->
+      <img class="boqueperro" src="Imagenes/guau.jpg" alt="">
+      <img class="boqueperro" src="Imagenes/huesos.jpg" alt="">
+
+      <hr> <!-- "hr" Es para poner una raya horizontal-->
+
+      <h3>Lista de Perros</h3>
+
+      <div>
+        <p>Cosas que los perros <em>aman:</em></p> <!-- "em" Es para poner letra en cursiva-->
+        <ul class="lista-de-perros">   <!-- Class es por decirlo asi para unir varios elementos y al hacer el diseño se le aplique a los elementos con esa clase-->
+          <li>Cabanos</li><!--List item (Item de lista)-->
+          <li>Huesos</li>
+          <li><s>Chunky Cordero</s></li> <!-- "s" Es para tachar-->
+        </ul><!--Undered List (Lista NO Ordenada)-->
+        <!-- LA LISTA NO ORDENADA TIENE VIÑETAS-->
+        <img src="Imagenes/chunky.jpg" alt="">
+
+        <p>Cosas que los Perros <strong>odian:</strong></p> <!-- "strong" Es para poner letra en negrilla-->
+        <ol class="lista-de-perros">
+          <li>Gente extraña</li>
+          <li>Perros mas grandes que ellos</li>
+          <li>Truenos</li>
+        </ol> <!-- Lista ordenada (Ordened List)-->
+      </div>
+
+      <img src="Imagenes/truenos.jpg" alt="">
+
+      <form action="/enviar-respuesta">  <!-- "action" Accion a ejecutar o a donde lo llevara-->
+        <label for="interior">
+          <input id="interior" type="radio" name="interior-exterior" value="interior">Interior</label>     <!-- "Label" Es para que tambien se seleccione la opcion cuando se le da click en el texto-->
+
+        <br>  <!-- Salto de linea -->
+        
+        <label for="exterior">
+          <input id="exterior" type="radio" name="interior-exterior" value="exterior">Exterior</label>    <!-- "radio" Para hacer los circulos de seleccion-->
+
+        <br>
+        
+        <input type="text" placeholder="URL de una foto" required> <!-- "input" Pedir datos.   "placeholder" Para mostrar un texto sobre el el cuadro de texto.   "required" Para hacer que el cuadro de texto sea obligatorio-->
+        
+        <br>
+
+        <button type="submit">Enviar</button>
+        <br>
+
+        <!-- Casillas de verificacion -->
+        <fieldset>
+        <legend>Como es tu mascota?</legend>
+        <label for="carinoso">
+          <input id="carinoso" type="checkbox" name="personalidad" value="carnoso" checked>Cariñoso</label>  <!-- el atributo checked es para que al cargar la pagina la opcion este puesta por defecto-->
+          <br>
+        <label for="perezoso">
+          <input id="perezoso" type="checkbox" name="personalidad" value="perezoso">Perezoso</label>   <!-- "value" Es el valor que va recibir el servidor si la opcion es seleccionada-->
+          <br>
+        <label for="energico">
+          <input id="energico" type="checkbox" name="personalidad" value="energico">Energico</label>
+        </fieldset>
+          <br>
+
+      </form>
+    </main
+    <footer>    <!-- "footer" Significa pie de pagina-->
+      <p><small>Derechos de autor.   ---   <a href="https://www.facebook.com/" target="_blank">Facebook</a></small></p>
+    </footer>
+  </body>
+</html>

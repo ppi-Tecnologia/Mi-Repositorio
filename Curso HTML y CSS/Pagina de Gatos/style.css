@@ -1,0 +1,13 @@
+h2 {
+  font-family: 'Noto Sans', sans-serif;
+  color: red;
+}
+
+.boqueperro {
+  width: 400px;   /* width = ancho*/
+  height: 300px;  /* height = alto*/
+  border-color: darkred;
+  border-style: groove;
+  border-width: 10px;
+  border-radius: 50%;
+}

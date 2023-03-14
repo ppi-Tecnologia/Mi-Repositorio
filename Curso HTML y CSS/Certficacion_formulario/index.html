@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Certificacion</title>
+    <link rel="stylesheet" href="/Curso HTML y CSS/Certficacion_formulario/styles.css">
+  </head>
+  <body>
+    <main>
+      <h1 id="title">freeCodeCamp Survey Form</h1>
+      <p id="description">Thank you for taking the time to help us improve the platform</p>
+      <form id="survey-form">
+        <label for="name" id="name-label">Nombre:<input id="name" type="text" required placeholder="Escribe tu nombre"></label>
+        <label for="email" id="email-label">Correo:<input id="email" type="email" placeholder="Escribe tu correo" required></label>
+        <label for="edad" id="number-label"> Edad:<input id="number" type="number" placeholder="Escribe tu edad" min="13" max="120"></label>
+        <label for="dropdown">¿Qué opción describe mejor su función actual?</label>
+        <select id="dropdown">
+          <option> Seleccione una opcion</option>
+          <option>Estudiante</option>
+          <option>Trabajo de tiempo completo</option>
+          <option>Trabajo de medio Tiempo</option>
+          <option>Profesor</option>
+        </select>
+        <label>Would you recommend freeCodeCamp to a friend?</label>
+        <label for="definitivo"><input type="radio" id="definitivo" name="opcion" value="opcion1"> Definitivo</label>
+        <label for="talvez"><input id="talvez" type="radio" name="opcion" value="opcion2"> Tal vez</label>
+        <label>¿Qué te gustaría ver mejorado? (Marque todo lo que corresponda)</label>
+        <label for="fronted"><input type="checkbox" value="fronted" id="fronted">Fronted</label>
+        <label for="backend"><input type="checkbox" value="backend" id="backend">Backend</label>
+        <label for="retos"><input type="checkbox" value="retos" id="retos">Retos</label>
+        <label for="videos"><input type="checkbox" value="videos" id="videos">Videos</label>
+        <label for="comentarios">Tienes algun Comentario o sugerencia??</label>
+        <textarea id="comentarios" placeholder="Escribe tus opiniones" cols="80" rows="5"></textarea>
+        <input name="submit" id="submit" class="submit" type="submit">
+      </form
+    </main>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+body {
+  font-family: sans-serif, Arial, Helvetica, sans-serif;
+  background-image: url(https://4.bp.blogspot.com/-hROBuuV1wMs/UYrm0BAWVTI/AAAAAAAACCE/MJ2lhAirqZM/s1600/Fondo+HD+para+bajar+-+WiriWiri_info+-+.jpg) ;
+  padding: 20px;
+}
+
+.titulito {
+  font-family: italic;
+}
+
+.imagen1 {
+  display: block;
+  height: 70px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu {
+  background-color: burlywood;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px;
+  max-width: 500px;
+}
+
+hr {
+  height: 2px;
+  background-color: brown;
+  border-color: brown ;
+}
+
+.donas {
+  display: block;
+  height: 70px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cafe, .postre {
+  text-align: left;
+  width: 75%;
+}
+
+.item p {
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.precio {
+  text-align: right;
+  width: 25%;
+}
+
+h1, h2 {
+  font-family: Impact, serif;
+}
+
+h1, h2, p, h4 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 40px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+footer {
+  font-size: 14px;
+  text-align: center;
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  color: gray;
+}
+
+a:hover{
+  color: greenyellow;
+} 
+
+a:active{
+  color: yellow;
+}
+
