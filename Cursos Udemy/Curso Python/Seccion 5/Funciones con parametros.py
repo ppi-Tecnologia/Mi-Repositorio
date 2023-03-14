@@ -6,9 +6,12 @@ def restar(a, b):
 
 def multiplicar(a=None, b=None):
     if a==None or b==None:
-        print('Error, Debes enviar un valor para "a" y otro para "b"')
+        print('Juan Daniel')
         return 
     return a*b    
+
+def dividir(a, b):
+    return a//b
         
 suma = sumar(70,80)
 print(suma)
@@ -18,3 +21,6 @@ print(resta)
 
 multiplicacion = multiplicar()
 print(multiplicacion)
+
+division = dividir(40,2)
+print(division)
