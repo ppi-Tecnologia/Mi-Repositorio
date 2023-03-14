@@ -9,6 +9,5 @@ saludo, nombre, edad = saludar()
 print(valor)
 print(saludo)
 print(nombre, edad)
-print(type(edad))
 
 #print(f'Hola {nombre} desde fuera de la funcion saludar')
