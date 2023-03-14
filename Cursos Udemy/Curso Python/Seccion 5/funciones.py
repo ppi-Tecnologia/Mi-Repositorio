@@ -1,8 +1,14 @@
 def saludar():
-    global nombre
+    global nombre # Estoy volviendo global la variable nombre
     nombre = 'Juan Castrillon'
-    print("Hola desde la funcion saludar")
-    print('Hola', nombre)
+    edad = 25
+    return 'Hola desde la funcion saludar', nombre, edad
     
-saludar()
-print(f'Hola {nombre} desde fuera de la funcion saludar')
+valor = saludar()
+saludo, nombre, edad = saludar()
+print(valor)
+print(saludo)
+print(nombre, edad)
+print(type(edad))
+
+#print(f'Hola {nombre} desde fuera de la funcion saludar')
