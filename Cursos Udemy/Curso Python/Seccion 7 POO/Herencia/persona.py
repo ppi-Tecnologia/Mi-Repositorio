@@ -18,12 +18,16 @@ class Cliente(Persona):
 class Empleado(Persona):    
     
     def __init__(self, nombre, edad, sueldo):
-        super().__init__(nombre, edad)
+        #super es para heredar los atributos del metodo nombrado
+        #super().__init__(nombre, edad)
+        Persona.__init__(self, edad, nombre)
         self.sueldo = sueldo
         
     def detalle_empleador(self):
-        super().detalle_persona(    )
+        #super().detalle_persona(    )
+        Persona.detalle_persona(self)
         print(f'Sueldo: {self.sueldo}')
     
     def __str__(self):
-        return super().__str__() + f'\nSueldo: {self.sueldo}'
+        #super().__str__() + f'\nSueldo: {self.sueldo}'
+        return Persona.__str__(self) + f'\nSueldo: {self.sueldo}'
