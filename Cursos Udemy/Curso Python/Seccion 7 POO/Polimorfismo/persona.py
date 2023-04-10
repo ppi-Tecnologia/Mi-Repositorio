@@ -1,3 +1,5 @@
+#Polimorfismo es como sobreescribir los metodos bajo un mismo nombre pero que pueden funcionar diferente
+
 class Persona(object):
     def __init__(self, nombre):
         self.nombre = nombre
