@@ -20,6 +20,7 @@ class Rectangulo(Figura):
     altura = None
     
     def __init__(self, nombre, base, altura):
+        #self.nombre = __class__.__name__ Esto me deja en el atributo nombre el nombre de la clase
         Figura.__init__(self, nombre)
         self.base = base
         self.altura = altura
