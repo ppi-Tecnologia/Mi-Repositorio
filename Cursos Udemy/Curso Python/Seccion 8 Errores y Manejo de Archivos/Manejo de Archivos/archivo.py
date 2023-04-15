@@ -31,8 +31,14 @@ def modificar_datos():
         archivo.writelines(texto) #Sobreescribe los elementos de la lista
         archivo.close()
         print(texto)
+        
+def eliminar_datos():
+    archivo = open('texto.txt','w') #La w es para ponerlo en modo escritura
+    archivo.close()
 
-modificar_datos()
+eliminar_datos()
+#modificar_datos()
 #agregar_datos()        
 #leer_archivo() 
 #escribir_archivo()
+ 
