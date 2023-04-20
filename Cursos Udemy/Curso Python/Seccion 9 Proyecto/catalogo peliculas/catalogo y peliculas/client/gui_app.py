@@ -40,12 +40,25 @@ class Frame(tk.Frame):
         #Entrys de cada campo
         self.entry_nombre = tk.Entry(self) #Para meterlo al paquete
         self.entry_nombre.config(width = 50, state = 'disabled', font = ('Arial', 12)) # ancho, desactivado y tipo de letra con tamaño
-        self.entry_nombre.grid(row = 0, column = 1, padx = 10, pady = 10) #Posicion
+        self.entry_nombre.grid(row = 0, column = 1, padx = 10, pady = 10, columnspan = 2) # Fila, Columna, Paddingx, Paddingy, cduantas columnas ocupara
         
         self.entry_duracion = tk.Entry(self) #Para meterlo al paquete
         self.entry_duracion.config(width = 50, state = 'disabled', font = ('Arial', 12))# ancho, desactivado y tipo de letra con tamaño
-        self.entry_duracion.grid(row = 1, column = 1, padx = 10, pady = 10) #Posicion
+        self.entry_duracion.grid(row = 1, column = 1, padx = 10, pady = 10, columnspan = 2) #Posicion
         
         self.entry_genero = tk.Entry(self) #Para meterlo al paquete
         self.entry_genero.config(width = 50, state = 'disabled', font = ('Arial', 12))# ancho, desactivado y tipo de letra con tamaño
-        self.entry_genero.grid(row = 2, column = 1, padx = 10, pady = 10) #Posicion
+        self.entry_genero.grid(row = 2, column = 1, padx = 10, pady = 10, columnspan = 2) #Posicion
+
+        #Botones
+        self.boton_nuevo = tk.Button(self, text = 'Nuevo')
+        self.boton_nuevo.config(width = 20, font = ('Arial', 12, 'bold'), fg = '#DAD5D6', bg = 'green', cursor = 'hand2', activebackground = '#35BD6F') # Anchura, Tipo de letra, tamaño, estilo, color de letra, color fondo, cursor, color cuando se active el boton
+        self.boton_nuevo.grid(row = 4, column = 0, padx = 10, pady = 10) 
+        
+        self.boton_guardar = tk.Button(self, text = 'Guardar')
+        self.boton_guardar.config(width = 20, font = ('Arial', 12, 'bold'), fg = '#DAD5D6', bg = '#1658A2', cursor = 'hand2', activebackground = '#3586DF')
+        self.boton_guardar.grid(row = 4, column = 1, padx = 10, pady = 10)
+        
+        self.boton_cancelar = tk.Button(self, text = 'Cancelar')
+        self.boton_cancelar.config(width = 20, font = ('Arial', 12, 'bold'), fg = '#DAD5D6', bg = '#BD152E', cursor = 'hand2', activebackground = '#E15370')
+        self.boton_cancelar.grid(row = 4, column = 2, padx = 10, pady = 10)
