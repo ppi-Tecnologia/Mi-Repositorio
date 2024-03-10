@@ -1,0 +1,59 @@
+#cuadro {
+    background-color: rgb(50,50,50, 0.5);
+    width:  30%;
+    border-radius: 17px;
+    margin: auto;
+    padding: 15px;  
+    
+}
+
+h1{
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: white;
+}
+
+body {
+    background-image: url(https://cdn.wallpapersafari.com/7/54/i9XuC6.jpg);
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#iniciosesion {
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 5px;
+    color: white;
+}
+
+label {
+    display: block;
+    color: white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+input {
+    width: 95%;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: darkgray;
+    border-radius: 3px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: dimgray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+button {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: darkred;
+    border-color: darkred;
+    color: white;
+}
