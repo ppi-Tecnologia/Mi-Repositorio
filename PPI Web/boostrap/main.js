@@ -6,6 +6,6 @@ const typewriter = new Typewriter(app, {
 });
 
 typewriter
-.typeString('La capital del Sol')
-.pauseFor(200)
+.typeString('La Ciudad de la Eterna Primavera')
+.pauseFor(300)
 .start();
