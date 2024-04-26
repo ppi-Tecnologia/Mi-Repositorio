@@ -1,3 +1,0 @@
-Hola Mundo de Python
-Hola Juan Castrillon
-Hola Juan

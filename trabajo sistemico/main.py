@@ -1,66 +1,102 @@
-from cuaderno import Notebook
+import datetime
+
+class Note:
+    _id = 0
+    
+    def __init__(self, memo='', tag=''):
+        self.id = Note._id
+        Note._id += 1
+        self.memo = memo
+        self.tag = tag
+        self.creation_date = datetime.date.today()
+
+class Notebook:
+    def __init__(self):
+        self.notes = []
+
+    def new_note(self, memo, tag=''):
+        self.notes.append(Note(memo, tag))
+
+    def modify_memo(self, note_id, memo):
+        note = self.find_note_by_id(note_id)
+        if note:
+            note.memo = memo
+        else:
+            print(f"Nota con id {note_id} no encontrada.")
+
+    def modify_tag(self, note_id, tag):
+        note = self.find_note_by_id(note_id)
+        if note:
+            note.tag = tag
+        else:
+            print(f"Nota con id {note_id} no encontrada.")
+
+    def search(self, filter):
+        matching_notes = []
+        for note in self.notes:
+            if self.match(note.memo, filter) or self.match(note.tag, filter):
+                matching_notes.append(note)
+        return matching_notes
+
+    def find_note_by_id(self, note_id):
+        for note in self.notes:
+            if note.id == note_id:
+                return note
+        print(f"Nota con id {note_id} no encontrada.")
+        return None
+
+    def print_notes(self):
+        for note in self.notes:
+            print("Note ID:", note.id)
+            print("Memo:", note.memo)
+            print("Tag:", note.tag)
+            print("Creation Date:", note.creation_date)
+            print()
+
+    def match(self, note, filter):
+        return filter.lower() in note.lower()
 
 if __name__ == '__main__':
     notebook = Notebook()
-    notebook.new_note('Hello World')
-    notebook.new_note('Hello World again')
-
-    print('Printing all addresses of notes in the notebook:')
-    notebook.print_note_memory_addresses()
-    print('')
-
-    print('notebook.notes[0].id: {}'.format(notebook.notes[0].id))
-    print('notebook.notes[1].id: {}'.format(notebook.notes[1].id))
-    print('notebook.notes[0].memo: {}'.format(notebook.notes[0].memo))
-    print()
-
-    print('Executing notebook.search(\'Hello\'):')
-    print('Printing all addresses of notes in the notebook with the string \'Hello\' in memo or tag :')
-    for note1 in notebook.notes:
-        print(note1)
-    print('')
-
-    print("Executing notebook.modify_memo(1, 'Hi World')")
-    notebook.modify_memo(1, 'Hi World')
-    print('notebook.notes[1].memo: {}'.format(notebook.notes[1].memo))
-
-    print("Executing notebook.new_note('With tag', 'Peter')")
-    notebook.new_note('With tag', 'Peter')
-    print('Printing all addresses of notes in the notebook:')
-    notebook.print_note_memory_addresses()
-    print('')
-
-    print("Executing vars(notebook.notes[0])")
-    print(vars(notebook.notes[0]))
-    print()
-
-    print("Executing print(notebook.notes[2].tag)")
-    print(notebook.notes[2].tag)
-
-    print("Executing notebook.find_note_by_id(3)")
-    note1 = notebook.find_note_by_id(3)
-    print(note1)
-    print()
-
-    print("Executing notebook.find_note_by_id(2)")
-    note2 = notebook.find_note_by_id(2)
-    print(vars(note2))
-    print()
-
-    print("Executing notebook.modify_tag(2, 'John')")
-    notebook.modify_tag(2, 'John')
-    print("Executing print(notebook.notes[2].tag)")
-    print(notebook.notes[2].tag)
-    print()
-   
-    print('Printing all addresses of notes in the notebook:')
-    notebook.print_note_memory_addresses()
-    print('')
-
-    print("Printing all notes iterating over the notebook and using vars() for each note:")
-    for note in notebook.notes:
-        print(vars(note))
-    print('')
-
-    print('Printing all notes using print_notes() method:')
-    notebook.print_notes()
+    
+    while True:
+        print("\n¿Qué deseas hacer?")
+        print("1. Agregar nueva nota")
+        print("2. Modificar una nota existente")
+        print("3. Buscar notas")
+        print("4. Mostrar todas las notas")
+        print("5. Salir")
+        
+        opcion = input("Selecciona una opción: ")
+        
+        if opcion == '1':
+            memo = input("Ingrese el mensaje de la nota: ")
+            tag = input("Ingrese la etiqueta de la nota (opcional): ")
+            notebook.new_note(memo, tag)
+            print("Nota agregada correctamente.")
+        elif opcion == '2':
+            note_id = int(input("Ingrese el ID de la nota que desea modificar: "))
+            memo = input("Ingrese el nuevo mensaje de la nota: ")
+            notebook.modify_memo(note_id, memo)
+            print("Mensaje de la nota modificado correctamente.")
+        elif opcion == '3':
+            filter = input("Ingrese el filtro para buscar notas: ")
+            matching_notes = notebook.search(filter)
+            if matching_notes:
+                print("Notas encontradas:")
+                for note in matching_notes:
+                    print("ID:", note.id)
+                    print("Memo:", note.memo)
+                    print("Tag:", note.tag)
+                    print("Creation Date:", note.creation_date)
+                    print()
+            else:
+                print("No se encontraron notas que coincidan con el filtro.")
+        elif opcion == '4':
+            print("Todas las notas en el cuaderno:")
+            notebook.print_notes()
+        elif opcion == '5':
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opción no válida. Por favor, seleccione una opción válida.")
