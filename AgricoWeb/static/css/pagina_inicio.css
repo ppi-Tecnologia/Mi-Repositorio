@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    
+
+}
+
+.lobster-regular {
+    font-family: "Lobster", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
+.merriweather-light {
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .merriweather-regular {
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .merriweather-bold {
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .merriweather-black {
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .merriweather-light-italic {
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .merriweather-regular-italic {
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .merriweather-bold-italic {
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .merriweather-black-italic {
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  
+
+#menu a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3f3f3f; 
+}
+
+#menu button {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.carousel-inner {
+    max-height: 32rem;
+}
+
+
+@media (max-width: 120px) {
+    #local {
+        flex-wrap: wrap;
+        padding-top: 30px;
+    }
+
+    .wrapper {
+        width: 90%;
+        margin: auto;
+        padding-top: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    #intro, #equipo {
+        width: 90% !important; 
+    }
+
+    #equipo p{
+        display: none;
+    }
+
+    .servicio-fila {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    #bg-contacto {
+        top:-110px;
+    
+    }
+}
+
+@media(max-width: 576px ) {
+    .icono-warp {
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+}
+
+.mapa {
+    background-image: url("{{ url_for('static', filename='imagenes/mapa.png') }}");
+    width: 100%;
+    height: 500px;
+}
+
+#local {
+    background-color: #f3f3f3;
+    padding-bottom: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    width: 70%;
+    margin-left: 100px;
+    padding-top: 100px;
+}
+
+#numeros-local div {
+    padding: 0 20px 0 0;
+    height: 48px;
+
+}
+
+#numeros-local div:not(:last-child) {
+    border-right: 2px solid #3f3f3f;
+}
+
+#numeros-local div:not(:first-child) {
+    padding-left: 20px;
+}
+
+#numeros-local p {
+    margin: 0;
+}
+
+#bg-contacto {
+    position: relative;
+    top:-130px;
+
+}
+
+#seccion-contacto {
+    background-color: #1b2a4e;
+    min-height: 500px;
+    position: relative; 
+}
+
+#contenedor-formulario {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fbfafa;
+    border-radius: 5px;
+    max-width: 500px;
+}
+
+#titulo-formulario {
+    color: #3f3f3f;
+}
+
+footer {
+    background: #1b2a4e;
+    min-height: 100px;
+}
+
+footer p {
+    color: #f3f3f3;
+    text-align: center;
+}
+
+#iconos i {
+    font-size: 26px;
+    padding: 0 8px;
+    color: #f3f3f3;
+}

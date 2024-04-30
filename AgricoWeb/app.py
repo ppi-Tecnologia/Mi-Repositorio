@@ -62,7 +62,7 @@ def crear_registro():
     fecha_nacimiento = request.form['txtFechaNacimiento']
     
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, '1', %s)",(nombre, apellido, correo, contrasena, telefono, fecha_nacimiento))
+    cur.execute("INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, id_rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, '1', %s)",(nombre, apellido, correo, contrasena, telefono, fecha_nacimiento))
     mysql.connection.commit()
     
     return render_template("iniciar_sesion.html", mensaje2="Usuario registrado correctamente")
