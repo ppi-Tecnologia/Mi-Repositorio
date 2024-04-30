@@ -55,12 +55,12 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link text-success" href="/PPI Web/inicio sesion/template/index.html">Iniciar Sesión</a>
+                <a class="nav-link text-success" href="{{ url_for('iniciar_sesion') }}">Iniciar Sesión</a>
               </li>
 
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="email" placeholder="Correo electronico" aria-label="email">
-              <a href="/PPI Web/registrarse/index.html"><button class="btn btn-success btn-primary-outline-success mx-2" type="button">Registrarse</button></a>
+              <a href="{{ url_for('registro') }}"><button class="btn btn-success btn-primary-outline-success mx-2" type="button">Registrarse</button></a>
             </form>
           </div>
         </div>
@@ -73,15 +73,15 @@
         <div class="carousel-inner">
 
           <div class="carousel-item active" data-bs-interval="3000">
-            <img src="/PPI Web/inicio/imagenes/matas.avif" class="d-block w-100" alt="Hombre cuidando su granja">
+            <img src="./imagenes/matas.avif" class="d-block w-100" alt="Hombre cuidando su granja">
           </div>
 
           <div class="carousel-item" data-bs-interval="3000">
-            <img src="/PPI Web/inicio/imagenes/de casa.avif" class="d-block w-100" alt="Una granja remakia">
+            <img src="./imagenes/de casa.avif" class="d-block w-100" alt="Una granja remakia">
           </div>
 
           <div class="carousel-item" data-bs-interval="3000">
-            <img src="/PPI Web/inicio/imagenes/varias plantas.webp" class="d-block w-100" alt="Unas manos tocando las matas">
+            <img src="./imagenes/varias plantas.webp" class="d-block w-100" alt="Unas manos tocando las matas">
           </div>
         </div>
 
@@ -109,14 +109,14 @@
       <section class="container-fluid">
         <div class="row w-75 mx-auto  servicio-fila">
             <div class="col-lg-6 col-med-12 col-sm-12 d-flex my-5 icono-wrap">
-                <img src="/PPI Web/inicio/imagenes/pregunta y respuesta.jpg" alt="Pregunas e ideas" width="220" height="160">
+                <img src="./imagenes/pregunta y respuesta.jpg" alt="Pregunas e ideas" width="220" height="160">
                 <div>
                     <h3 class="fs-5 mt-4 px-4 pb-1">Soluciona tus dudas</h3>
                     <p class="px-4">Respuestas a muchas preguntas comunes</p>
                 </div>
             </div>
             <div class="col-lg-6 col-med-12 col-sm-12  d-flex my-5 icono-wrap">
-                <img src="/PPI Web/inicio/imagenes/preguntas.jpg" alt="Simbolos de pregunta" width="220" height="160">
+                <img src="./imagenes/preguntas.jpg" alt="Simbolos de pregunta" width="220" height="160">
                 <div>
                     <h3  class="fs-5 mt-4 px-4 pb-1">Preguntanos</h3>
                     <p class="px-4">Si no encuentras tu pregunta, dejanos una a nosotros y la contestaremos</p>
@@ -125,14 +125,14 @@
         </div>
         <div class="row w-75 mx-auto  servicio-fila">
             <div class="col-lg-6 col-med-12 col-sm-12 d-flex my-5 icono-wrap">
-                <img src="/PPI Web/inicio/imagenes/fuente de informacion.jpg" alt="imagen de navegador web" width="220" height="160">
+                <img src="./imagenes/fuente de informacion.jpg" alt="imagen de navegador web" width="220" height="160">
                 <div>
                     <h3 class="fs-5 mt-4 px-3 pb-1">Toda la información esta aquí</h3>
                     <p class="px-4">Gran parte de la información acerca de plantas domesticas la encuentras aquí</p>
                 </div>
             </div>
             <div class="col-lg-6 col-med-12 col-sm-12  d-flex my-5 icono-wrap">
-                <img src="/PPI Web/inicio/imagenes/plantas domesticas.webp" alt="plantas domesticas" width="220" height="160">
+                <img src="./imagenes/plantas domesticas.webp" alt="plantas domesticas" width="220" height="160">
                 <div>
                     <h3  class="fs-5 mt-4 px-4 pb-1">Plantas de Hogar</h3>
                     <p class="px-4">La informacion que te brindamos aquí es sobre plantas domesticas</p>
@@ -149,7 +149,7 @@
             <p class="fs-4">Buscamos toda la información en las mejores paginas y en las más confiables. ¡Nuestra prioridad es traerte lo mejor para tu satisfacción!</p>
         </div>
         <div class="mt-5 text-center">
-            <img class="img-fluid" src="/PPI Web/inicio/imagenes/agricultura-ecologica.jpg" alt="equipo">
+            <img class="img-fluid" src="./imagenes/agricultura-ecologica.jpg" alt="equipo">
         </div>
 
         <div id="local" class="border-top border-2">
@@ -190,7 +190,7 @@
         <!--FORMULARIO-->
         <div class="container" id="contenedor-formulario">
             <div class="titulo-formulario" class="text-center mb-4">
-                <div><img src="/PPI Web/inicio/imagenes/agricultura.jpg" alt="Contacto" class="img-fluid"></div>
+                <div><img src="./imagenes/agricultura.jpg" alt="Contacto" class="img-fluid"></div>
                 <h2>Contactos</h2>
                 <p class="fs-5">Dejanos Recomendaciones para seguir mejorando la pagina</p>
             </div>

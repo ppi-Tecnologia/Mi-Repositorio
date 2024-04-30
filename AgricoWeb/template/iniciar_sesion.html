@@ -23,6 +23,19 @@
         <img src="https://static.vecteezy.com/system/resources/previews/019/879/198/original/user-icon-on-transparent-background-free-png.png" alt="icono de usuario" style="height: 7rem">
       </div>
       <div class="text-center fs-1 fw-bold">Iniciar Sesión</div>
+      <!-- Mensaje de Error -->
+      <!-------->
+      {% if mensaje %}
+        <div class="alert alert-danger" role="alert">
+          {{mensaje}}
+        </div>
+      {% endif %}
+      <!-- Mensaje de Registro Existoso -->
+      {% if mensaje2 %}
+        <div class="alert alert-success" role="alert">
+          {{mensaje2}}
+        </div>
+      {% endif %}
       <div class="input-group mt-3" >
         <div class="input-group-text bg-success" >
           <img src="https://cdn-icons-png.freepik.com/256/15/15235.png?semt=ais_hybrid" alt="icono de usuario pequeño" style="height: 1rem">

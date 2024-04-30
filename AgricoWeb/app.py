@@ -13,7 +13,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('pagina_inicio.html')
 
 @app.route('/admin')
 def admin():
@@ -37,9 +37,36 @@ def login():
             
             return render_template("admin.html")
         else:
-            return render_template('index.html', mensaje="Usuario incorrecto")
+            return render_template('iniciar_sesion.html', mensaje="Usuario incorrecto")
         
-        
+# REGISTRO ---
+@app.route('/registro')
+def registro():
+    return render_template('registro.html')
+
+@app.route('/iniciar_sesion')
+def iniciar_sesion():
+    return render_template('iniciar_sesion.html')
+
+@app.route('/administrador')
+def administrador():
+    return render_template('administrador.html')
+
+@app.route('/crear-registro', methods = ["GET", "POST"])
+def crear_registro():
+    nombre = request.form['txtNombre']
+    apellido = request.form['txtApellido']
+    correo = request.form['txtCorreo']
+    contrasena = request.form['txtContrasena']
+    telefono = request.form['txtTelefono']
+    fecha_nacimiento = request.form['txtFechaNacimiento']
+    
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, '1', %s)",(nombre, apellido, correo, contrasena, telefono, fecha_nacimiento))
+    mysql.connection.commit()
+    
+    return render_template("iniciar_sesion.html", mensaje2="Usuario registrado correctamente")
+    
 
 
 if __name__ == '__main__':
