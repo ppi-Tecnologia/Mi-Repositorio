@@ -1,12 +1,13 @@
 from flask import Flask
-from flask import render_template, redirect, request, Response, session
+from flask import render_template, redirect, request, Response, session, url_for
 from flask_mysqldb import MySQL, MySQLdb
+import database as db
 
 app = Flask(__name__, template_folder='template')
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '123456'
+app.config['MYSQL_PASSWORD'] = '123456' 
 app.config['MYSQL_DB'] = 'agricoweb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
@@ -57,6 +58,20 @@ def iniciar_sesion():
 def administrador():
     return render_template('administrador.html')
 
+@app.route('/tabla_usuarios')
+def tabla_usuarios():
+    cursor = db.database.cursor()
+    cursor.execute("SELECT * FROM usuario")
+    myresult = cursor.fetchall()
+    #Convertir los datos a diccionario
+    insertObject = []
+    columnNames = [column[0] for column in cursor.description]
+    for record in myresult:
+        insertObject.append(dict(zip(columnNames, record)))
+    cursor.close()
+    
+    return render_template('tabla_usuarios.html', data=insertObject)
+
 @app.route('/crear-registro', methods = ["GET", "POST"])
 def crear_registro():
     nombre = request.form['txtNombre']
@@ -72,6 +87,51 @@ def crear_registro():
     
     return render_template("iniciar_sesion.html", mensaje2="Usuario registrado correctamente")
     
+@app.route('/usuario', methods=['POST'])
+def addUser():
+    nombres = request.form['nombres']
+    apellidos = request.form['apellidos']
+    correo = request.form['correo']
+    contrasena = request.form['contrasena']
+    telefono = request.form['telefono']
+    id_rol = request.form['id_rol']
+    fecha_nacimiento = request.form['fecha_nacimiento']
+    
+    if nombres and apellidos and correo and contrasena and telefono and id_rol and fecha_nacimiento:
+        cursor = db.database.cursor()
+        sql = "INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, id_rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        data = (nombres, apellidos, correo, contrasena, telefono, id_rol, fecha_nacimiento)
+        cursor.execute(sql, data)
+        db.database.commit()
+    return redirect(url_for('tabla_usuarios'))
+
+@app.route('/eliminar/<string:id_usuario>')
+def eliminar(id_usuario):
+    cursor = db.database.cursor()
+    sql = "DELETE FROM usuario WHERE id_usuario=%s"
+    data = (id_usuario,)
+    cursor.execute(sql, data)
+    db.database.commit()
+    return redirect(url_for('tabla_usuarios'))
+    
+@app.route('/editar/<string:id_usuario>', methods=['POST'])
+def editar(id_usuario):
+    nombres = request.form['nombres']
+    apellidos = request.form['apellidos']
+    correo = request.form['correo']
+    contrasena = request.form['contrasena']
+    telefono = request.form['telefono']
+    id_rol = request.form['id_rol']
+    fecha_nacimiento = request.form['fecha_nacimiento']
+    
+    if nombres and apellidos and correo and contrasena and telefono and id_rol and fecha_nacimiento:
+        cursor = db.database.cursor()
+        sql = "UPDATE usuario SET nombres = %s, apellidos = %s, correo = %s, contraseña = %s, telefono = %s, id_rol = %s, fecha_nacimiento = %s WHERE id_usuario = %s"
+        data = (nombres, apellidos, correo, contrasena, telefono, id_rol, fecha_nacimiento, id_usuario)
+        cursor.execute(sql, data)
+        db.database.commit()
+    return redirect(url_for('tabla_usuarios'))
+
 
 
 if __name__ == '__main__':
