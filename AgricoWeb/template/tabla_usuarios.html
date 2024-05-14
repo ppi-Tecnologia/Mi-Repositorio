@@ -29,21 +29,10 @@
             <a class="nav-link active text-light" aria-current="page" href="{{ url_for('tabla_usuarios') }}">Usuarios</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+            <a class="nav-link text-light" href="{{ url_for('tabla_preguntas_sin_responder')}}">Preguntas sin Responder</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" >Armani</a>
+            <a class="nav-link text-light" href="{{ url_for('tabla_preguntas_respondidas') }}" >Preguntas Respondidas</a>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -56,7 +45,7 @@
 
   <h1 class="text-center mt-5 nb-5 text-success">CONTROL DE USUARIOS</h1>
   <div class="container">
-    <div class="card shadow">
+    <div class="card-shadow">
       <div class="card-body">
         <form action="/usuario" method="POST">
           <div class="row mb-3">
@@ -150,7 +139,7 @@
                       <input type="text" class="form-control mb-3" name="fecha_nacimiento" value="{{d.fecha_nacimiento}}">
                   </div>
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Save changes</button>
+                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                     </div>
                   </form>
                 </div>

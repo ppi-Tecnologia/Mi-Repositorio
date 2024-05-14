@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, redirect, request, Response, session, url_for
 from flask_mysqldb import MySQL, MySQLdb
 import database as db
+from datetime import datetime
 
 app = Flask(__name__, template_folder='template')
 
@@ -58,6 +59,55 @@ def iniciar_sesion():
 def administrador():
     return render_template('administrador.html')
 
+@app.route('/tabla_preguntas_respondidas')
+def tabla_preguntas_respondidas():
+    cursor = db.database.cursor()
+    cursor.execute("SELECT * FROM respuesta")
+    myresult = cursor.fetchall()
+    insertObject = []
+    columnNames = [column[0] for column in cursor.description]
+    for record in myresult:
+        insertObject.append(dict(zip(columnNames, record)))
+    cursor.close()
+    
+    return render_template('tabla_preguntas_respondidas.html' , data=insertObject)
+    '''id_respuesta = reques.form['txtId_respuesta']
+    id_usuario = request.form['txtId_usuario']
+    id_pregunta = request.form['txId_pregunta']
+    respuesta = request.form['txtRespuesta']
+    fecha_publicacion = request.form['txtFecha_publicacion']
+    fecha_edicion = request.form['TxtFecha_edicion']'''
+    
+@app.route('/eliminar_respuesta/<string:id_respuesta>')
+def eliminar_respuesta(id_respuesta):
+    cursor = db.database.cursor()
+    sql = "DELETE FROM respuesta WHERE id_respuesta=%s"
+    data = (id_respuesta,)
+    cursor.execute(sql, data)
+    db.database.commit()
+    return redirect(url_for('tabla_preguntas_respondidas'))
+
+@app.route('/editar_respuesta/<string:id_respuesta>', methods=["POST"])
+def editar_respuesta(id_respuesta):
+    respuesta = request.form['respuesta']
+    #fecha_edicion = request.form['fecha_edicion']
+    fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if respuesta:
+        cursor = db.database.cursor()
+        sql = "UPDATE respuesta SET respuesta = %s, fecha_edicion = %s WHERE id_respuesta = %s"
+        data = (respuesta, fecha_edicion, id_respuesta)
+        cursor.execute(sql, data)
+        db.database.commit()
+    return redirect(url_for('tabla_preguntas_respondidas'))
+
+
+@app.route('/tabla_preguntas_sin_responder')
+def tabla_preguntas_sin_responder():
+    return render_template('tabla_preguntas_sin_responder.html')
+
+
+
+
 @app.route('/tabla_usuarios')
 def tabla_usuarios():
     cursor = db.database.cursor()
@@ -72,6 +122,7 @@ def tabla_usuarios():
     
     return render_template('tabla_usuarios.html', data=insertObject)
 
+#CREAR REGISTRO EN LA TABLA DE USUARIOS
 @app.route('/crear-registro', methods = ["GET", "POST"])
 def crear_registro():
     nombre = request.form['txtNombre']
@@ -86,7 +137,8 @@ def crear_registro():
     mysql.connection.commit()
     
     return render_template("iniciar_sesion.html", mensaje2="Usuario registrado correctamente")
-    
+
+#CREAR UN USUARIO NUEVO EN LA TABLA DE USUARIOS
 @app.route('/usuario', methods=['POST'])
 def addUser():
     nombres = request.form['nombres']
@@ -105,6 +157,7 @@ def addUser():
         db.database.commit()
     return redirect(url_for('tabla_usuarios'))
 
+#ELIMINAR UN USUARIO EN LA TABLA DE USUARIOS
 @app.route('/eliminar/<string:id_usuario>')
 def eliminar(id_usuario):
     cursor = db.database.cursor()
@@ -114,6 +167,7 @@ def eliminar(id_usuario):
     db.database.commit()
     return redirect(url_for('tabla_usuarios'))
     
+#EDITAR UN USUARIO EN LA TABLA DE USUARIOS
 @app.route('/editar/<string:id_usuario>', methods=['POST'])
 def editar(id_usuario):
     nombres = request.form['nombres']
