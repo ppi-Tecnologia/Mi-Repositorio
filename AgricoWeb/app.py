@@ -71,12 +71,6 @@ def tabla_preguntas_respondidas():
     cursor.close()
     
     return render_template('tabla_preguntas_respondidas.html' , data=insertObject)
-    '''id_respuesta = reques.form['txtId_respuesta']
-    id_usuario = request.form['txtId_usuario']
-    id_pregunta = request.form['txId_pregunta']
-    respuesta = request.form['txtRespuesta']
-    fecha_publicacion = request.form['txtFecha_publicacion']
-    fecha_edicion = request.form['TxtFecha_edicion']'''
     
 @app.route('/eliminar_respuesta/<string:id_respuesta>')
 def eliminar_respuesta(id_respuesta):
@@ -103,7 +97,43 @@ def editar_respuesta(id_respuesta):
 
 @app.route('/tabla_preguntas_sin_responder')
 def tabla_preguntas_sin_responder():
-    return render_template('tabla_preguntas_sin_responder.html')
+    cursor = db.database.cursor()
+    cursor.execute("SELECT * FROM pregunta")
+    myresult = cursor.fetchall()
+    insertObject = []
+    columnNames = [column[0] for column in cursor.description]
+    for record in myresult:
+        insertObject.append(dict(zip(columnNames, record)))
+    cursor.close()
+    return render_template('tabla_preguntas_sin_responder.html', data = insertObject)
+
+
+@app.route('/eliminar_pregunta/<string:id_pregunta>', methods=["POST"])
+def eliminar_pregunta(id_pregunta):
+    cursor = db.database.cursor()
+    sql = "DELETE FROM pregunta WHERE id_pregunta = %s"
+    data = (id_pregunta,)
+    cursor.execute(sql, data)
+    db.database.commit()
+    return redirect(url_for('tabla_preguntas_sin_responder'))
+
+@app.route('/responder_pregunta/<string:id_pregunta>', methods=["POST"])
+def responder_pregunta(id_pregunta):
+    respuesta = request.form['respuesta']
+    cursor = db.database.cursor()
+    consulta1 = "SELECT id_usuario FROM pregunta WHERE id_pregunta = %s"
+    cursor.execute(consulta1)
+    id_usuario = cursor.fetchone()[0]
+    fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if respuesta:
+        cursor = db.database.cursor()
+        sql = "INSERT INTO respuesta(id_usuario, id_pregunta, respuesta, fecha_publicacion, fecha_edicion) VALUES(%s, %s, %s, %s, 'Sin Editar')"
+        data = (id_usuario, id_pregunta, respuesta, fecha_edicion)
+        cursor.execute(sql, data)
+        db.database.commit()
+    return redirect(url_for('tabla_preguntas_sin_responder'))
+
+    
 
 
 

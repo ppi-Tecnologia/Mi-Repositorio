@@ -43,6 +43,79 @@
   </nav>
 
   <h1 class="text-center mt-5 nb-5 text-success"> PREGUNTAS SIN RESPONDER</h1>
+
+  <div class="container">
+    <div class="card-shadow">
+      <div class="card-body">
+        <form action="/pregunta" method="POST">
+          <div class="row mb-3">
+            <div class="col">
+              <label>Escribe aqui tu pregunta</label>
+              <input type="text" class="form-control mb-3" name="contenido">
+            </div>
+            <div class="col">
+              <label>Estado</label>
+              <input type="text" class="form-control mb-3" name="estado">
+            </div>
+            <div class="col">
+              <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- TABLA -->
+
+        <table class="table table-bordered">
+          <thead>
+            <th scope="col">id pregunta</th>
+            <th scope="col">id usuario</th>
+            <th scope="col">Contenido</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Responder</th>
+          </thead>
+          <tbody>
+            {% for d in data %}
+            <tr>
+              <td>{{d.id_pregunta}}</td>
+              <td>{{d.id_usuario}}</td>
+              <td>{{d.contenido}}</td>
+              <td>{{d.fecha}}</td>
+              <td>{{d.estado}}</td>
+              <td><button class="btn btn-success btn-sm" id="btn-edit{{d.id_pregunta}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id_pregunta}}">Responder</button></td>
+            </tr>
+            
+            <!-- MODAL -->
+            <div class="modal fade" id="modal{{d.id_pregunta}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.id_pregunta}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="/responder_pregunta/{{d.id_pregunta}}" method="POST">
+                      <label>Respuesta</label>
+                      <input type="text" class="form-control mb-3" name="respuesta" value="{{d.contenido}}">
+                  </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
   
   
   
