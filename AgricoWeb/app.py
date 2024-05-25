@@ -19,7 +19,19 @@ def home():
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    cursor = db.database.cursor()
+    cursor.execute("SELECT p.id_pregunta, r.respuesta, r.url_imagen, p.contenido FROM respuesta as r JOIN pregunta as p ON p.id_pregunta = r.id_pregunta")
+    myresult = cursor.fetchall()
+    insertObject = []
+    columnNames = [column[0] for column in cursor.description]
+    for record in myresult:
+        insertObject.append(dict(zip(columnNames, record)))
+    cursor.close()
+    return render_template('admin.html', data = insertObject)
+
+@app.route('/inicio')
+def pagina_inicio():
+    return render_template('pagina_inicio.html')
 
 #FUNCION DE LOGIN
 @app.route('/acceso-login', methods = ["GET", "POST"])
@@ -84,12 +96,13 @@ def eliminar_respuesta(id_respuesta):
 @app.route('/editar_respuesta/<string:id_respuesta>', methods=["POST"])
 def editar_respuesta(id_respuesta):
     respuesta = request.form['respuesta']
+    urlImagen = request.form['urlImagen']
     #fecha_edicion = request.form['fecha_edicion']
     fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    if respuesta:
+    if respuesta and urlImagen:
         cursor = db.database.cursor()
-        sql = "UPDATE respuesta SET respuesta = %s, fecha_edicion = %s WHERE id_respuesta = %s"
-        data = (respuesta, fecha_edicion, id_respuesta)
+        sql = "UPDATE respuesta SET respuesta = %s, fecha_edicion = %s, url_imagen = %s WHERE id_respuesta = %s"
+        data = (respuesta, fecha_edicion, urlImagen, id_respuesta)
         cursor.execute(sql, data)
         db.database.commit()
     return redirect(url_for('tabla_preguntas_respondidas'))
@@ -108,6 +121,8 @@ def tabla_preguntas_sin_responder():
     return render_template('tabla_preguntas_sin_responder.html', data = insertObject)
 
 
+
+
 @app.route('/eliminar_pregunta/<string:id_pregunta>', methods=["POST"])
 def eliminar_pregunta(id_pregunta):
     cursor = db.database.cursor()
@@ -117,18 +132,38 @@ def eliminar_pregunta(id_pregunta):
     db.database.commit()
     return redirect(url_for('tabla_preguntas_sin_responder'))
 
-@app.route('/responder_pregunta/<string:id_pregunta>', methods=["POST"])
+@app.route('/responder_pregunta/<string:id_pregunta>', methods=['POST'])
 def responder_pregunta(id_pregunta):
     respuesta = request.form['respuesta']
     cursor = db.database.cursor()
-    consulta1 = "SELECT id_usuario FROM pregunta WHERE id_pregunta = %s"
-    cursor.execute(consulta1)
+    consulta = "SELECT id_usuario FROM pregunta WHERE id_pregunta = %s"
+    data = (id_pregunta,)
+    cursor.execute(consulta, data)
+    #consulta1 = "SELECT id_usuario FROM pregunta WHERE id_pregunta = %s"
+    #cursor.execute(consulta1)
     id_usuario = cursor.fetchone()[0]
     fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if respuesta:
         cursor = db.database.cursor()
         sql = "INSERT INTO respuesta(id_usuario, id_pregunta, respuesta, fecha_publicacion, fecha_edicion) VALUES(%s, %s, %s, %s, 'Sin Editar')"
         data = (id_usuario, id_pregunta, respuesta, fecha_edicion)
+        cursor.execute(sql, data)
+        db.database.commit()
+    return redirect(url_for('tabla_preguntas_sin_responder'))
+
+@app.route('/pregunta', methods=['POST'])
+def añadir_pregunta():
+    contenido = request.form['contenido']
+    '''cursor = db.database.cursor()
+    consulta1 = "SELECT id_usuario FROM pregunta WHERE id_pregunta = %s"
+    cursor.execute(consulta1)
+    usuario = cursor.fetchone()[0]'''
+    fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    if contenido:
+        cursor = db.database.cursor()
+        sql = "INSERT INTO pregunta(id_usuario, contenido, fecha, estado) VALUES ('10000', %s, %s, 'Sin Responder')"
+        data = (contenido, fecha_edicion)
         cursor.execute(sql, data)
         db.database.commit()
     return redirect(url_for('tabla_preguntas_sin_responder'))
