@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador: AgricoWeb</title>
+    <title>AgricoWeb {{nombre_usuario}}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ url_for('admin') }}">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{{ url_for('admin') }}">Preguntas & Respuestas</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#formulario-pregunta">¿No encontraste tu pregunta?</a>
@@ -37,10 +37,7 @@
           <li class="nav-item">
             <a class="nav-link text-success" href="{{ url_for('iniciar_sesion') }}">Cerrar sesión</a>
           </li>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="email" placeholder="Correo electrónico" aria-label="email">
-            <a href="{{ url_for('registro') }}"><button class="btn btn-success btn-primary-outline-success mx-2" type="button">Buscar</button></a>
-          </form>
+
         </ul>
       </div>
     </div>
@@ -146,7 +143,6 @@
 
 
 
-
   </section>
 
 
@@ -156,7 +152,7 @@
 
   <section id="formulario-pregunta" class="container mt-5">
     <h2 class="text-center">¿No encontraste tu pregunta?</h2>
-    <form action="#" method="POST">
+    <form action="/guardar_pregunta/" method="POST">
       <div class="mb-3">
         <label for="pregunta" class="form-label">Ingresa tu pregunta</label>
         <textarea class="form-control" id="pregunta" name="pregunta" rows="3" required></textarea>

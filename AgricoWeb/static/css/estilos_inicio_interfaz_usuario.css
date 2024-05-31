@@ -1,0 +1,13 @@
+.contenedor {
+    width: 65%;
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align: center;
+}
+
+img {
+    width: 25%;
+    display: block;
+    margin: 0 auto;
+
+}
