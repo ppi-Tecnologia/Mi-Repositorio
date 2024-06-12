@@ -20,7 +20,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-success">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Administrador {{nombre_usuario}}</a>
+      <a class="navbar-brand text-light" href="{{ url_for('administrador') }}">Administrador {{nombre_usuario}}</a>
         
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -53,31 +53,31 @@
           <div class="row mb-3">
             <div class="col">
               <label>Nombres</label>
-              <input type="text" class="form-control mb-3" name="nombres">
+              <input type="text" class="form-control mb-3" name="nombres" required>
             </div>
             <div class="col">
               <label>Apellidos</label>
-              <input type="text" class="form-control mb-3" name="apellidos">
+              <input type="text" class="form-control mb-3" name="apellidos" required>
             </div>
             <div class="col">
               <label>Correo</label>
-              <input type="text" class="form-control mb-3" name="correo">
+              <input type="email" class="form-control mb-3" name="correo" required>
             </div>
             <div class="col">
               <label>Contraseña</label>
-              <input type="text" class="form-control mb-3" name="contrasena">
+              <input type="text" class="form-control mb-3" name="contrasena" required>
             </div>
             <div class="col">
               <label>Telefono</label>
-              <input type="text" class="form-control mb-3" name="telefono">
+              <input type="number" class="form-control mb-3" name="telefono" required>
             </div>
             <div class="col">
               <label>id_rol</label>
-              <input type="text" class="form-control mb-3" name="id_rol">
+              <input type="number" class="form-control mb-3" name="id_rol" min="1" max="2" required>
             </div>
             <div class="col">
               <label>F. Nacimiento</label>
-              <input type="text" class="form-control mb-3" name="fecha_nacimiento">
+              <input type="date" class="form-control mb-3" name="fecha_nacimiento" required>
             </div>  
             <div class="col">
               <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
@@ -126,17 +126,17 @@
                   <div class="modal-body">
                     <form action="/editar/{{d.id_usuario}}" method="POST">
                       <label>Nombres</label>
-                      <input type="text" class="form-control mb-3" name="nombres" value="{{d.nombres}}">
+                      <input type="text" class="form-control mb-3" name="nombres" value="{{d.nombres}}" required>
                       <label>Apellidos</label>
-                      <input type="text" class="form-control mb-3" name="apellidos" value="{{d.apellidos}}">
+                      <input type="text" class="form-control mb-3" name="apellidos" value="{{d.apellidos}}" required>
                       <label>Correo</label>
-                      <input type="text" class="form-control mb-3" name="correo" value="{{d.correo}}">
+                      <input type="text" class="form-control mb-3" name="correo" value="{{d.correo}}" required>
                       <label>Contraseña</label>
-                      <input type="text" class="form-control mb-3" name="contrasena" value="{{d.contraseña}}">
+                      <input type="text" class="form-control mb-3" name="contrasena" value="{{d.contraseña}}" required>
                       <label>Telefono</label>
-                      <input type="text" class="form-control mb-3" name="telefono" value="{{d.telefono}}">
+                      <input type="text" class="form-control mb-3" name="telefono" value="{{d.telefono}}" required>
                       <label>id_rol</label>
-                      <input type="text" class="form-control mb-3" name="id_rol" value="{{d.id_rol}}">
+                      <input type="text" class="form-control mb-3" name="id_rol" value="{{d.id_rol}}" required>
                       <label>Fecha Nacimiento</label>
                       <input type="text" class="form-control mb-3" name="fecha_nacimiento" value="{{d.fecha_nacimiento}}">
                   </div>

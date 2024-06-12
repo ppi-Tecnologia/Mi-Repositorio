@@ -15,7 +15,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-success">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Administrador {{nombre_usuario}}</a>
+      <a class="navbar-brand text-light" href="{{ url_for('administrador') }}">Administrador {{nombre_usuario}}</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -47,7 +47,7 @@
           <div class="row mb-3">
             <div class="col">
               <label>Escribe aqui tu pregunta</label>
-              <input type="text" class="form-control mb-3" name="contenido">
+              <input type="text" class="form-control mb-3" name="contenido" required>
             </div>
             <div class="col">
               <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
@@ -96,9 +96,9 @@
                       <label>id_pregunta</label>
                       <input type="text" class="form-control mb-3" name="id_pregunta" value="{{d.id_pregunta}}" readonly>
                       <label>Respuesta</label>
-                      <input type="text" class="form-control mb-3" name="respuesta">
+                      <input type="text" class="form-control mb-3" name="respuesta" required>
                       <label>URL imagen</label>
-                      <input type="text" class="form-control mb-3" name="UrlImagen">
+                      <input type="text" class="form-control mb-3" name="UrlImagen" required>
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
