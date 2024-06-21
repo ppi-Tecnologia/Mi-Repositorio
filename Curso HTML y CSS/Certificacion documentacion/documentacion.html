@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./documentacion_estilos.css">
+    <title>Python Documentation</title>
+  </head>
+  <body>
+    <nav id="navbar">
+      <header id="titulo">Python Documentacion</header>
+      <ul>
+        <a href="#Introduccion_a_Python" class="nav-link"><li>Introduccion a Python</li></a>
+        <a href="#Sentencia_if" class="nav-link"><li>Sentencia if</li></a>
+        <a href="#Sentencia_for" class="nav-link"><li>Sentencia for</li></a>
+        <a href="#Sentencia_range" class="nav-link"><li>Sentencia range</li></a>
+        <a href="#Sentencia_pass" class="nav-link"><li>Sentencia pass</li></a>
+        <a href="#Sentencia_break_continue_y_else" class="nav-link"><li>Sentencia break continue y else</li></a>
+      </ul>
+    </nav>
+    <main id="main-doc">
+      <section class="main-section" id="Introduccion_a_Python">
+        <header>Introduccion a Python</header>
+        <article>
+          <p>Python es un lenguaje de programación de alto nivel, interpretado y de propósito general. Fue creado por Guido van Rossum y su primera versión fue lanzada en 1991. Python se ha convertido en uno de los lenguajes de programación más populares del mundo debido a su simplicidad, legibilidad y versatilidad.</p>
+          <p>Se han creado gran variedad de aplicaciones que han sido desarrollados con el interprete de python, entre ellas estan: Pinterest, Dropbox, Spotify, Netflix, entre otras.</p>
+          <ul>
+            <li>Simplicidad y legibilidad: Python está diseñado para ser fácil de leer y escribir, con una sintaxis clara y concisa que hace que el código sea más comprensible y mantenible.</li>
+            <li>Multiparadigma: Python admite varios paradigmas de programación, incluidos el orientado a objetos, el procedural y el funcional.</li>
+            <li>Bibliotecas extensas: Python cuenta con una amplia biblioteca estándar que proporciona módulos y paquetes para realizar tareas comunes, como manipulación de cadenas, manejo de archivos, comunicación de red y pruebas.</li>
+            <li>Portabilidad: Python es multiplataforma, lo que significa que el código escrito en Python puede ejecutarse en diferentes sistemas operativos sin cambios.</li>
+            <li>Comunidad activa: Python tiene una gran comunidad de desarrolladores que contribuyen con bibliotecas, herramientas y soporte, lo que facilita el aprendizaje y la resolución de problemas.</li>
+          </ul>
+        </article>
+      </section>
+      <section id="Sentencia_if" class="main-section">
+        <header>Sentencia if</header>
+        <article>
+          <i><h3>Sintaxis if:</h3></i>
+          <p>La sentencia if en Python se utiliza para tomar decisiones en el código basado en ciertas condiciones. Es una de las estructuras de control más fundamentales en cualquier lenguaje de programación y permite ejecutar diferentes bloques de código dependiendo del resultado de una condición booleana (verdadera o falsa).</p>
+          <code>if condición: <br>  # Bloque de código a ejecutar si la condición es verdadera</code>
+          <i><h3>Uso de else:</h3></i>
+          <p>La sentencia else se utiliza para ejecutar un bloque de código cuando la condición del if es falsa.</p>
+          <code>edad = 16 <br><br> if edad >= 18: <br>ㅤㅤprint("Eres un adulto.")<br>else: <br>ㅤㅤprint("Eres menor de edad.")</code>
+          <p>En este ejemplo, el mensaje "Eres un adulto." se imprimirá porque la condición edad >= 18 es verdadera.</p>
+          <i><h3>Uso de elif:</h3></i>
+          <p>La sentencia elif (abreviatura de "else if") se utiliza para verificar múltiples condiciones. Si la primera condición es falsa, Python verifica la siguiente condición elif, y así sucesivamente.</p>
+          <code>edad = 16 <br><br> if edad >= 18: <br>ㅤㅤprint("Eres un adulto.")<br>elif edad >= 13: <br>ㅤㅤprint("Eres un adolescente.") <br> else: <br>ㅤㅤprint("Eres un niño.")</code>
+          <p>En este ejemplo, el mensaje "Eres un adolescente." se imprimirá porque la condición edad >= 18 es falsa, pero la condición edad >= 13 es verdadera.</p>
+          <i><h3>Anidacion del if</h3></i>
+          <p>Es posible anidar sentencias if, lo que significa que puedes colocar una sentencia if dentro de otra. Esto permite manejar condiciones más complejas.</p>
+          <code>edad = 20 <br>tiene_identificacion = True<br> <br>if edad >= 18:<br>ㅤㅤif tiene_identificacion: <br>ㅤㅤㅤㅤprint("Puedes entrar al club.") <br>ㅤㅤelse:<br>ㅤㅤㅤㅤprint("Necesitas una identificación para entrar.")<br>else:
+    print("No puedes entrar al club porque eres menor de edad.")</code>
+          <p>En este caso, el mensaje "Puedes entrar al club." se imprimirá porque ambas condiciones edad >= 18 y tiene_identificacion son verdaderas.</p>
+        </article>
+      </section>
+      <section class="main-section" id="Sentencia_for">
+        <header>Sentencia for</header>
+        <article>
+          <p>La sentencia for en Python se utiliza para iterar sobre una secuencia (como una lista, una tupla, un diccionario, un conjunto o una cadena) o cualquier otro objeto iterable. Esta sentencia permite ejecutar un bloque de código varias veces, una vez por cada elemento en la secuencia.</p>
+          <i><h3>Estructura basica del bucle for:</h3></i>
+          <code>for variable in secuencia: <br>ㅤㅤ# Código a ejecutar en cada iteración</code>
+          <i><h3>Ejemplos con el bucle for:</h3></i>
+          <p>Iterar sobre una lista:</p>
+          <code>frutas = ["manzana", "banana", "cereza"] <br><br> for fruta in frutas: <br> ㅤㅤprint(fruta)</code>
+          <p>Iterar sobre una cadena:</p>
+          <code>mensaje = "Hola" <br><br>for letra in mensaje: <br> ㅤㅤprint(letra)</code>
+        </article>
+      </section>
+      <section class="main-section" id="Sentencia_range">
+        <header>Sentencia range</header>
+        <article>
+          <p>La función range() en Python se utiliza para generar una secuencia de números. Es especialmente útil cuando se combina con bucles for para iterar un número específico de veces o para generar secuencias de números con pasos definidos.</p>
+          <p>La funcion range se puede utilizar de diferentes maneras:</p>
+          <h3>Sintaxis basica del range:</h3>
+          <ul>
+            <li>Un solo argumento: range(stop)</li>
+            <li>Dos argumentos: range(start, stop)</li>
+            <li>Tres argumentos: range(start, stop, step)</li>
+          </ul>
+          <h3>Con un solo argumento:</h3>
+          <p>Cuando se usa range(stop), se genera una secuencia de números desde 0 hasta stop-1.</p>
+          <code>for i in range(5): <br>ㅤㅤprint(i)<br><br>#Salida <br>0<br>1<br>2<br>3<br>4</code>
+          <h3>Con dos argumentos:</h3>
+          <p>Cuando se usa range(start, stop), se genera una secuencia de números desde start hasta stop-1.</p>
+          <code>for i in range(2, 6): <br>ㅤㅤprint(i) <br><br>#Salida<br>2<br>3<br>4<br>5</code>
+          <h3>Con tres argumentos:</h3>
+          <p>Cuando se usa range(start, stop, step), se genera una secuencia desde start hasta stop-1, incrementando (o decrementando) en step.</p>
+          <code>for i in range(1, 10, 2): <br> ㅤㅤprint(i)<br><br>#Salida<br>1<br>3<br>5<br>7<br>9</code>
+        </article>
+      </section>
+      <section class="main-section" id="Sentencia_pass">
+        <header>Sentencia pass</header>
+        <article>
+          <p>La sentencia pass en Python es una operación nula; es decir, cuando se ejecuta, no sucede nada. Se utiliza como un marcador de posición en el código donde se requiere una declaración sintácticamente, pero no se necesita ninguna operación o acción. Esto es útil en varias situaciones, como la definición de funciones, clases, bucles o condiciones que aún no se han implementado.</p>
+          <h3>Ejemplos de la sentencia pass:</h3>
+          <p>Dentro de funciones:</p>
+          <p>Cuando se define una función que aún no tiene una implementación, se puede usar pass para permitir que el código se ejecute sin errores de sintaxis.</p>
+          <code>def funcion_no_implementada(): <br>ㅤㅤpass <br><br># Llamar a la función no hace nada<br>funcion_no_implementada()</code>
+          <p>En bucles:</p>
+          <p>Si se necesita un bucle que no haga nada (tal vez como un marcador de posición mientras se desarrolla el código), pass se puede usar dentro del bucle.</p>
+          <code>for i in range(5): <br>ㅤㅤpass</code>
+        </article>
+      </section>
+      <section class="main-section" id="Sentencia_break_continue_y_else">
+        <header>Sentencia break continue y else</header>
+        <article>
+          <p>En Python, break, continue y pass son sentencias de control de flujo que se utilizan para manejar la ejecución de bucles y otros bloques de código de manera específica. A continuación, te proporcionaré una introducción a cada una de estas sentencias con ejemplos.</p>
+          <h3>Sentencia break:</h3>
+          <p>La sentencia break se utiliza para salir de un bucle de forma anticipada, es decir, antes de que se haya completado normalmente. Esto es útil cuando se quiere terminar un bucle al cumplirse una condición específica.</p>
+          <code>for i in range(10): <br>ㅤㅤif i == 5: <br>ㅤㅤㅤㅤbreak <br>ㅤㅤprint(i)<br><br>#Salida<br>0<br>1<br>2<br>3<br>4</code>
+          <p>En este ejemplo, el bucle for se detiene cuando i es igual a 5.</p>
+          <h3>Sentencia continue:</h3>
+          <p>La sentencia continue se utiliza para omitir el resto del código dentro de un bucle en la iteración actual y pasar a la siguiente iteración. Esto es útil cuando se desea saltar ciertas iteraciones basadas en una condición.</p>
+          <code>for i in range(10): <br>ㅤㅤif i % 2 == 0: <br>ㅤㅤㅤㅤcontinue<br>ㅤㅤprint(i) <br><br>#Salida<br>1<br>3<br>5<br>7<br>9</code>
+          <h3>Sentencia else</h3>
+          <p>La sentencia else en Python es una estructura de control de flujo que se utiliza comúnmente junto con las sentencias if, for, y while. Su función principal es definir un bloque de código que se ejecuta cuando la condición en la sentencia if es falsa, o cuando un bucle for o while se completa normalmente (es decir, sin que se encuentre una sentencia break).</p>
+          <h3>Uso de else con if:</h3>
+          <code>x = 10 <br><br>if x > 15: <br>ㅤㅤprint("x es mayor que 15") <br>elif x > 5:<br>ㅤㅤprint("x es mayor que 5 pero menor o igual a 15")<br>else: <br>ㅤㅤprint("x es menor o igual a 5") <br><br>#Salida <br> x es mayor que 5 pero menor o igual a 15</code>
+          <p>En este ejemplo, la primera condición x > 15 es falsa, pero la segunda condición x > 5 es verdadera, por lo que se ejecuta el bloque correspondiente al elif.</p>
+          <h3>Uso de else con for:</h3>
+          <p>La sentencia else también se puede utilizar con bucles for. En este contexto, el bloque else se ejecuta después de que el bucle ha iterado sobre todos los elementos de la secuencia. Sin embargo, si el bucle se interrumpe con una sentencia break, el bloque else no se ejecuta.</p>
+          <code>for i in range(5): <br>ㅤㅤif i == 3:<br>ㅤㅤㅤㅤbreak<br>ㅤㅤprint(i)<br>else:<br>ㅤㅤprint("El bucle ha terminado normalmente")<br><br>print("Fin del primer bucle") <br><br>for i in range(5): <br>ㅤㅤprint(i) <br> else:<br>ㅤㅤprint("El bucle ha terminado normalmente") <br><br>#Salida<br>0<br>1<br>2<br>Fin del primer bucle<br>0<br>1<br>2<br>3<br>4<br>El bucle ha terminado normalmente</code>
+          <p>En este ejemplo:</p>
+          <ul>
+            <li>En el primer bucle, se encuentra una sentencia break cuando i es igual a 3, por lo que el bucle se interrumpe y el bloque else no se ejecuta.</li>
+            <li>En el segundo bucle, no hay sentencia break, por lo que después de iterar todos los elementos, se ejecuta el bloque else</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
