@@ -13,6 +13,15 @@ app.config['MYSQL_DB'] = 'agricoweb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
+#AGREGAR EL DECORADOR PARA EVITAR EL CACHE
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
+
 #RUTA PRINCIPAL
 @app.route('/')
 def home():
@@ -73,12 +82,24 @@ def login():
             session['nombre_usuario'] = account['nombres']
             
             if session['id_rol'] == 2:
-                return render_template("administrador.html", nombre_usuario = session['nombre_usuario'], id_usuario = session['id_usuario'])
+                #return render_template("administrador.html", nombre_usuario = session['nombre_usuario'], id_usuario = session['id_usuario'])
+                return redirect(url_for('administrador'))
             elif session['id_rol'] == 1:
-                return render_template("inicio_interfaz_usuario.html", nombre_usuario = session['nombre_usuario'], id_usuario = session['id_usuario'])
-            
+                #return render_template("inicio_interfaz_usuario.html", nombre_usuario = session['nombre_usuario'], id_usuario = session['id_usuario'])
+                return redirect(url_for('inicio_interfaz_usuario'))
+
         else:
             return render_template('iniciar_sesion.html', mensaje="Usuario incorrecto")
+    return render_template('iniciar_sesion.html')
+
+
+@app.route('/inicio_interfaz_usuario')
+def inicio_interfaz_usuario():
+    if 'logueado' in session:
+        return render_template("inicio_interfaz_usuario.html", nombre_usuario=session['nombre_usuario'], id_usuario=session['id_usuario'])
+    else:
+        return redirect('/acceso-login')
+
         
 #RUTA A PAGINA DE REGISTRO
 @app.route('/registro')
@@ -93,7 +114,10 @@ def iniciar_sesion():
 #RUTA PARA ACCEDER AL INICIO DE INTERFAZ DE USUARIO REGISTRADO
 @app.route('/administrador')
 def administrador():
-    return render_template('administrador.html')
+    if 'logueado' in session:
+        return render_template('administrador.html', nombre_usuario=session['nombre_usuario'])
+    else: 
+        return redirect(url_for('login'))
 
 #RUTA DE TABLA DE PREGUNTAS RESPONDIDAS
 @app.route('/tabla_preguntas_respondidas')
@@ -110,31 +134,39 @@ def tabla_preguntas_respondidas():
         cursor.close()
         
         return render_template('tabla_preguntas_respondidas.html' , data=insertObject, nombre_usuario=nombre_usuario)
+    else:
+        return redirect(url_for('login'))
  
 #FUNCION PARA ELIMINAR RESPUESTAS EN LA TABLA DE PREGUNTAS RESPONDIDAS
 @app.route('/eliminar_respuesta/<string:id_respuesta>')
 def eliminar_respuesta(id_respuesta):
-    cursor = db.database.cursor()
-    sql = "DELETE FROM respuesta WHERE id_respuesta=%s"
-    data = (id_respuesta,)
-    cursor.execute(sql, data)
-    db.database.commit()
-    return redirect(url_for('tabla_preguntas_respondidas'))
+    if 'logueado' in session:
+        cursor = db.database.cursor()
+        sql = "DELETE FROM respuesta WHERE id_respuesta=%s"
+        data = (id_respuesta,)
+        cursor.execute(sql, data)
+        db.database.commit()
+        return redirect(url_for('tabla_preguntas_respondidas'))
+    else:
+        return redirect(url_for('login'))
 
 #FUNCION PARA EDITAR RESPUESTAS DE LA TABLA DE PREGUNTAS RESPONDIDAS
 @app.route('/editar_respuesta/<string:id_respuesta>', methods=["POST"])
 def editar_respuesta(id_respuesta):
-    respuesta = request.form['respuesta']
-    urlImagen = request.form['urlImagen']
-    #fecha_edicion = request.form['fecha_edicion']
-    fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    if respuesta and urlImagen:
-        cursor = db.database.cursor()
-        sql = "UPDATE respuesta SET respuesta = %s, fecha_edicion = %s, url_imagen = %s WHERE id_respuesta = %s"
-        data = (respuesta, fecha_edicion, urlImagen, id_respuesta)
-        cursor.execute(sql, data)
-        db.database.commit()
-    return redirect(url_for('tabla_preguntas_respondidas'))
+    if 'logueado' in session:
+        respuesta = request.form['respuesta']
+        urlImagen = request.form['urlImagen']
+        #fecha_edicion = request.form['fecha_edicion']
+        fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if respuesta and urlImagen:
+            cursor = db.database.cursor()
+            sql = "UPDATE respuesta SET respuesta = %s, fecha_edicion = %s, url_imagen = %s WHERE id_respuesta = %s"
+            data = (respuesta, fecha_edicion, urlImagen, id_respuesta)
+            cursor.execute(sql, data)
+            db.database.commit()
+        return redirect(url_for('tabla_preguntas_respondidas'))
+    else:
+        return redirect(url_for('login'))
 
 
 
@@ -153,16 +185,21 @@ def tabla_preguntas_sin_responder():
             insertObject.append(dict(zip(columnNames, record)))
         cursor.close()
         return render_template('tabla_preguntas_sin_responder.html', data = insertObject, nombre_usuario = nombre_usuario)
+    else:
+        return redirect(url_for('login'))
 
 #FUNCION PARA ELIMINAR PREGUNTAS DE LA TABLA DE PREGUNTAS SIN RESPONDER
 @app.route('/eliminar_pregunta/<string:id_pregunta>', methods=["POST"])
 def eliminar_pregunta(id_pregunta):
-    cursor = db.database.cursor()
-    sql = "DELETE FROM pregunta WHERE id_pregunta = %s"
-    data = (id_pregunta,)
-    cursor.execute(sql, data)
-    db.database.commit()
-    return redirect(url_for('tabla_preguntas_sin_responder'))
+    if 'logueado' in session:
+        cursor = db.database.cursor()
+        sql = "DELETE FROM pregunta WHERE id_pregunta = %s"
+        data = (id_pregunta,)
+        cursor.execute(sql, data)
+        db.database.commit()
+        return redirect(url_for('tabla_preguntas_sin_responder'))
+    else: 
+        return redirect(url_for('login'))
 
 #FUNCION PARA RESPONDER PREGUNTAS DE LA TABLA PREGUNTAS SIN RESPONDER
 @app.route('/responder_pregunta/', methods=['POST'])
@@ -183,21 +220,26 @@ def responder_pregunta():
             cursor.execute(sql1, data1)
             db.database.commit()
         return redirect(url_for('tabla_preguntas_sin_responder'))
+    else:
+        return redirect(url_for('login'))
 
 #FUNCION PARA AÑADIR UNA PREGUNTA NUEVA A LA TABLA DE PREGUNTAS SIN RESPONDER
 @app.route('/pregunta', methods=['POST'])
 def añadir_pregunta():
-    contenido = request.form['contenido']
-    fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-    if contenido:
-        id_usuario = session['id_usuario']
-        cursor = db.database.cursor()
-        sql = "INSERT INTO pregunta(id_usuario, contenido, fecha, estado) VALUES (%s, %s, %s, 'Sin Responder')"
-        data = (id_usuario, contenido, fecha_edicion)
-        cursor.execute(sql, data)
-        db.database.commit()
-    return redirect(url_for('tabla_preguntas_sin_responder'))
+    if 'logueado' in session:
+        contenido = request.form['contenido']
+        fecha_edicion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        if contenido:
+            id_usuario = session['id_usuario']
+            cursor = db.database.cursor()
+            sql = "INSERT INTO pregunta(id_usuario, contenido, fecha, estado) VALUES (%s, %s, %s, 'Sin Responder')"
+            data = (id_usuario, contenido, fecha_edicion)
+            cursor.execute(sql, data)
+            db.database.commit()
+        return redirect(url_for('tabla_preguntas_sin_responder'))
+    else:
+        return redirect(url_for('login'))
 
 #RUTA PARA LA TABLA DE USUARIOS
 @app.route('/tabla_usuarios')
@@ -215,70 +257,84 @@ def tabla_usuarios():
         cursor.close()
         
         return render_template('tabla_usuarios.html', data=insertObject, nombre_usuario = nombre_usuario)
+    else:
+        return redirect(url_for('login'))
 
 #CREAR REGISTRO EN LA TABLA DE USUARIOS
 @app.route('/crear-registro', methods = ["GET", "POST"])
 def crear_registro():
-    nombre = request.form['txtNombre']
-    apellido = request.form['txtApellido']
-    correo = request.form['txtCorreo']
-    contrasena = request.form['txtContrasena']
-    telefono = request.form['txtTelefono']
-    fecha_nacimiento = request.form['txtFechaNacimiento']
-    
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, id_rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, '1', %s)",(nombre, apellido, correo, contrasena, telefono, fecha_nacimiento))
-    mysql.connection.commit()
-    
-    return render_template("iniciar_sesion.html", mensaje2="Usuario registrado correctamente")
+    if 'logueado' in session:
+        nombre = request.form['txtNombre']
+        apellido = request.form['txtApellido']
+        correo = request.form['txtCorreo']
+        contrasena = request.form['txtContrasena']
+        telefono = request.form['txtTelefono']
+        fecha_nacimiento = request.form['txtFechaNacimiento']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, id_rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, '1', %s)",(nombre, apellido, correo, contrasena, telefono, fecha_nacimiento))
+        mysql.connection.commit()
+        
+        return render_template("iniciar_sesion.html", mensaje2="Usuario registrado correctamente")
+    else:
+        return redirect(url_for('login'))
 
 #CREAR UN USUARIO NUEVO EN LA TABLA DE USUARIOS
 @app.route('/usuario', methods=['POST'])
 def addUser():
-    nombres = request.form['nombres']
-    apellidos = request.form['apellidos']
-    correo = request.form['correo']
-    contrasena = request.form['contrasena']
-    telefono = request.form['telefono']
-    id_rol = request.form['id_rol']
-    fecha_nacimiento = request.form['fecha_nacimiento']
-    
-    if nombres and apellidos and correo and contrasena and telefono and id_rol and fecha_nacimiento:
-        cursor = db.database.cursor()
-        sql = "INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, id_rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        data = (nombres, apellidos, correo, contrasena, telefono, id_rol, fecha_nacimiento)
-        cursor.execute(sql, data)
-        db.database.commit()
-    return redirect(url_for('tabla_usuarios'))
+    if 'logueado' in session:
+        nombres = request.form['nombres']
+        apellidos = request.form['apellidos']
+        correo = request.form['correo']
+        contrasena = request.form['contrasena']
+        telefono = request.form['telefono']
+        id_rol = request.form['id_rol']
+        fecha_nacimiento = request.form['fecha_nacimiento']
+        
+        if nombres and apellidos and correo and contrasena and telefono and id_rol and fecha_nacimiento:
+            cursor = db.database.cursor()
+            sql = "INSERT INTO usuario(nombres, apellidos, correo, contraseña, telefono, id_rol, fecha_nacimiento) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            data = (nombres, apellidos, correo, contrasena, telefono, id_rol, fecha_nacimiento)
+            cursor.execute(sql, data)
+            db.database.commit()
+        return redirect(url_for('tabla_usuarios'))
+    else:
+        return redirect(url_for('login'))
 
 #ELIMINAR UN USUARIO EN LA TABLA DE USUARIOS
 @app.route('/eliminar/<string:id_usuario>')
 def eliminar(id_usuario):
-    cursor = db.database.cursor()
-    sql = "DELETE FROM usuario WHERE id_usuario=%s"
-    data = (id_usuario,)
-    cursor.execute(sql, data)
-    db.database.commit()
-    return redirect(url_for('tabla_usuarios'))
+    if 'logueado' in session:
+        cursor = db.database.cursor()
+        sql = "DELETE FROM usuario WHERE id_usuario=%s"
+        data = (id_usuario,)
+        cursor.execute(sql, data)
+        db.database.commit()
+        return redirect(url_for('tabla_usuarios'))
+    else:
+        return redirect(url_for('login'))
     
 #EDITAR UN USUARIO EN LA TABLA DE USUARIOS
 @app.route('/editar/<string:id_usuario>', methods=['POST'])
 def editar(id_usuario):
-    nombres = request.form['nombres']
-    apellidos = request.form['apellidos']
-    correo = request.form['correo']
-    contrasena = request.form['contrasena']
-    telefono = request.form['telefono']
-    id_rol = request.form['id_rol']
-    fecha_nacimiento = request.form['fecha_nacimiento']
-    
-    if nombres and apellidos and correo and contrasena and telefono and id_rol and fecha_nacimiento:
-        cursor = db.database.cursor()
-        sql = "UPDATE usuario SET nombres = %s, apellidos = %s, correo = %s, contraseña = %s, telefono = %s, id_rol = %s, fecha_nacimiento = %s WHERE id_usuario = %s"
-        data = (nombres, apellidos, correo, contrasena, telefono, id_rol, fecha_nacimiento, id_usuario)
-        cursor.execute(sql, data)
-        db.database.commit()
-    return redirect(url_for('tabla_usuarios'))
+    if 'logueado' in session:
+        nombres = request.form['nombres']
+        apellidos = request.form['apellidos']
+        correo = request.form['correo']
+        contrasena = request.form['contrasena']
+        telefono = request.form['telefono']
+        id_rol = request.form['id_rol']
+        fecha_nacimiento = request.form['fecha_nacimiento']
+        
+        if nombres and apellidos and correo and contrasena and telefono and id_rol and fecha_nacimiento:
+            cursor = db.database.cursor()
+            sql = "UPDATE usuario SET nombres = %s, apellidos = %s, correo = %s, contraseña = %s, telefono = %s, id_rol = %s, fecha_nacimiento = %s WHERE id_usuario = %s"
+            data = (nombres, apellidos, correo, contrasena, telefono, id_rol, fecha_nacimiento, id_usuario)
+            cursor.execute(sql, data)
+            db.database.commit()
+        return redirect(url_for('tabla_usuarios'))
+    else:
+        return redirect(url_for('login'))
 
 #GUARDAR LA PREGUNTA HECHA POR EL USUARIO REGISTRADO
 @app.route('/guardar_pregunta/', methods = ['POST'])
@@ -295,6 +351,26 @@ def guardar_pregunta():
             cursor.execute(sql, data)
             db.database.commit()
         return redirect(url_for('admin'))
+    else:
+        return redirect(url_for('login'))
+    
+    
+@app.route("/cerrar-sesion")
+def cerrar_sesion():
+    session.pop('logueado', False)
+    session.pop('id_usuario', None)
+    session.pop('id_rol', None)
+    session.pop('nombre_usuario', None)
+    
+    '''
+    response = redirect(url_for('login'))
+    response.headers['Cache-control'] = 'no store'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    '''
+    
+    #return response
+    return redirect(url_for('login'))
 
 
 
