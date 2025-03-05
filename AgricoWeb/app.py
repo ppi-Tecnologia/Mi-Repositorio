@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL, MySQLdb
 import database as db
 from datetime import datetime
 
+
 app = Flask(__name__, template_folder='template')
 
 app.config['MYSQL_HOST'] = 'localhost'
